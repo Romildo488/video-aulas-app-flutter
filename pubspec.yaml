@@ -1,0 +1,48 @@
+name: video_aulas_app
+description: "App para assistir video aulas e continuar de onde parou"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  wakelock_plus: ^1.2.5
+
+
+  # 🎬 PLAYER DE VIDEO
+  video_player: ^2.8.2
+
+  # 📸 GERAR THUMBNAIL AUTOMÁTICA (YouTube style)
+  video_thumbnail: ^0.5.3
+
+  # 💾 PROGRESSO LOCAL
+  shared_preferences: ^2.2.2
+
+  # 🔥 FIREBASE
+  firebase_core: ^3.8.0
+  firebase_auth: ^5.4.0
+  cloud_firestore: ^5.6.12
+
+  # 📱 ESCOLHER VIDEO DO CELULAR
+  file_picker: ^8.0.0
+
+  # 💾 SALVAR VIDEO PERMANENTE NO APP
+  path_provider: ^2.1.2
+  path: ^1.9.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/videos/

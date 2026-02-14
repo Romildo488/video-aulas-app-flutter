@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "51091454952",
+    "project_id": "video-aulas-app",
+    "storage_bucket": "video-aulas-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51091454952:android:134a9cf669f371445e825d",
+        "android_client_info": {
+          "package_name": "com.romildo.video_aulas_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwonuwDJWbVvSohRpq0LbOsf6iu86ZZyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
