@@ -8,28 +8,12 @@ O app funciona como um **mini YouTube de aulas**, com suporte a vídeos locais, 
 
 # 🎬 Demonstração do App
 
-<p align="center">
-  <img src="capturas de tela/app_demo.gif" width="250">
-</p>
-
+<p align="center"> <img src="capturas de tela/app_demo.gif" width="250"> </p>
 ---
 
 # 📱 Screenshots
 
-<p align="center">
-  <img src="capturas de tela/login.png" width="250">
-  <img src="capturas de tela/home.png" width="250">
-</p>
-
-<p align="center">
-  <img src="capturas de tela/player_vertical.png" width="250">
-  <img src="capturas de tela/fullscreen.png" width="250">
-</p>
-
-<p align="center">
-  <img src="capturas de tela/playlists.png" width="250">
-  <img src="capturas de tela/playlist_videos.png" width="250">
-</p>
+📱 Screenshots <p align="center"> <img src="screenshots/login.png" width="250"> <img src="screenshots/home.png" width="250"> </p> <p align="center"> <img src="screenshots/player_vertical.png" width="250"> <img src="screenshots/fullscreen.png" width="250"> </p> <p align="center"> <img src="screenshots/playlists.png" width="250"> <img src="screenshots/playlist_videos.png" width="250"> </p>
 
 ---
 
