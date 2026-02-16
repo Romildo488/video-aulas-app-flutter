@@ -22,7 +22,7 @@ O app funciona como um mini YouTube de aulas, com suporte a vídeos locais, down
 
 🖼️ Geração automática de thumbnails (estilo YouTube)
 
-🎬 Player completo estilo YouTube:
+🎬 Player estilo YouTube
 
 Controles que desaparecem automaticamente
 
@@ -32,7 +32,7 @@ Barra arrastável
 
 Tela cheia com rotação automática
 
-📚 Sistema completo de playlists:
+📚 Sistema de Playlists
 
 Criar playlist
 
@@ -42,7 +42,7 @@ Remover vídeos da playlist
 
 Deletar playlist
 
-💾 Vídeos locais persistentes no dispositivo
+💾 Vídeos locais persistentes
 
 🔋 Tela não desliga durante reprodução (Wakelock)
 
@@ -80,7 +80,7 @@ Você pode baixar o aplicativo aqui:
 👉 Download do APK:
 app-release.apk
 
-(adicione o APK na raiz do repositório depois)
+(adicione o APK na raiz do repositório)
 
 🎯 Objetivo do projeto
 
@@ -103,4 +103,4 @@ Projeto criado para estudo e portfólio.
 
 ⭐ Apoie o projeto
 
-Se gostou, deixe uma ⭐ no repositório!
+Se gostou do projeto, deixe uma ⭐ no repositório 💙
