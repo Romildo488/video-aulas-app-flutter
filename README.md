@@ -8,7 +8,10 @@ O app funciona como um **mini YouTube de aulas**, com suporte a vídeos locais, 
 
 # 🎬 Demonstração do App
 
-<p align="center"> <img src="capturas de tela/app_demo.gif.gif" width="250"> </p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Romildo488/video-aulas-app-flutter/main/capturas%20de%20tela/app_demo.gif" width="250">
+</p>
+
 ---
 
 # 📱 Screenshots
