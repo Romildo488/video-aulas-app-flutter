@@ -1,109 +1,111 @@
-🎓 Video Aulas App — Flutter + Firebase
+# 🎓 Video Aulas App — Flutter + Firebase
 
 Aplicativo mobile desenvolvido em Flutter para assistir videoaulas e continuar exatamente de onde parou, com sincronização em nuvem ☁️.
 
-O app funciona como um mini YouTube de aulas, com suporte a vídeos locais, download offline e sistema completo de playlists.
+O app funciona como um **mini YouTube de aulas**, com suporte a vídeos locais, download offline e sistema completo de playlists.
 
-🎬 Demonstração do App
+---
+
+# 🎬 Demonstração do App
+
 <p align="center">
   <img src="capturas de tela/app_demo.gif" width="250">
 </p>
 
-📱 Screenshots
-<p align="center"> <img src="screenshots/login.png" width="250"> <img src="screenshots/home.png" width="250"> </p> <p align="center"> <img src="screenshots/player_vertical.png" width="250"> <img src="screenshots/fullscreen.png" width="250"> </p> <p align="center"> <img src="screenshots/playlists.png" width="250"> <img src="screenshots/playlist_videos.png" width="250"> </p>
-🚀 Funcionalidades
+---
 
-🔐 Login e cadastro com Firebase Authentication
+# 📱 Screenshots
 
-☁️ Sincronização do progresso entre dispositivos (Firestore)
+<p align="center">
+  <img src="capturas de tela/login.png" width="250">
+  <img src="capturas de tela/home.png" width="250">
+</p>
 
-▶️ Continuar vídeo exatamente de onde parou
+<p align="center">
+  <img src="capturas de tela/player_vertical.png" width="250">
+  <img src="capturas de tela/fullscreen.png" width="250">
+</p>
 
-📥 Download de vídeos para assistir offline
+<p align="center">
+  <img src="capturas de tela/playlists.png" width="250">
+  <img src="capturas de tela/playlist_videos.png" width="250">
+</p>
 
-📱 Adicionar vídeos direto do celular
+---
 
-🖼️ Geração automática de thumbnails (estilo YouTube)
+# 🚀 Funcionalidades
 
-🎬 Player estilo YouTube
+### 🔐 Autenticação
+- Login e cadastro com **Firebase Authentication**
 
-Controles que desaparecem automaticamente
+### ☁️ Nuvem
+- Sincronização do progresso entre dispositivos (**Cloud Firestore**)
+- Continuar vídeo exatamente de onde parou
 
-Tempo restante do vídeo
+### 🎬 Player estilo YouTube
+- Controles que desaparecem automaticamente  
+- Tempo restante do vídeo  
+- Barra de progresso arrastável  
+- Tela cheia com rotação automática  
 
-Barra arrastável
+### 📥 Offline
+- Download de vídeos para assistir offline  
+- Adicionar vídeos direto do celular  
+- Geração automática de thumbnails (estilo YouTube)  
+- Vídeos locais persistentes  
 
-Tela cheia com rotação automática
+### 📚 Playlists completas
+- Criar playlist  
+- Adicionar vídeos à playlist  
+- Remover vídeos da playlist  
+- Deletar playlist  
 
-📚 Sistema de Playlists
+### 🔋 Experiência do usuário
+- Tela não desliga durante reprodução (Wakelock)
 
-Criar playlist
+---
 
-Adicionar vídeos à playlist
+# 🧠 Tecnologias utilizadas
 
-Remover vídeos da playlist
+- Flutter  
+- Firebase Authentication  
+- Cloud Firestore  
+- Video Player  
+- Shared Preferences  
+- File Picker  
+- Video Thumbnail  
+- Path Provider  
+- Wakelock Plus  
 
-Deletar playlist
+---
 
-💾 Vídeos locais persistentes
 
-🔋 Tela não desliga durante reprodução (Wakelock)
+*(adicione o APK na raiz do repositório)*
 
-🧠 Tecnologias utilizadas
+---
 
-Flutter
-
-Firebase Authentication
-
-Cloud Firestore
-
-Video Player
-
-Shared Preferences
-
-File Picker
-
-Video Thumbnail
-
-Path Provider
-
-Wakelock Plus
-
-🏗️ Estrutura do projeto
-lib/
- ├── models/      → Modelos de dados
- ├── services/    → Firebase, Storage, Download, Thumbnail
- ├── screens/     → Telas do aplicativo
- ├── data/        → Lista de vídeos iniciais
-
-📦 APK para teste
-
-Você pode baixar o aplicativo aqui:
-
-👉 Download do APK:
-app-release.apk
-
-(adicione o APK na raiz do repositório)
-
-🎯 Objetivo do projeto
+# 🎯 Objetivo do projeto
 
 Este projeto foi criado com foco em:
 
-Aprendizado de Flutter avançado
+- Aprendizado de Flutter avançado  
+- Integração completa com Firebase  
+- Persistência local + nuvem  
+- Experiência real de app de streaming  
+- Construção de portfólio para vaga de desenvolvedor mobile  
 
-Integração completa com Firebase
+---
 
-Persistência local + nuvem
+# 👨‍💻 Autor
 
-Experiência real de app de streaming
-
-Construção de portfólio para vaga de desenvolvedor mobile
-
-👨‍💻 Autor
-
-Desenvolvido por Romildo Silva 🚀
+Desenvolvido por **Romildo Silva** 🚀  
 Projeto criado para estudo e portfólio.
 
-⭐ Apoie o projeto
+---
+
+# ⭐ Apoie o projeto
 
 Se gostou do projeto, deixe uma ⭐ no repositório 💙
+
+
+
