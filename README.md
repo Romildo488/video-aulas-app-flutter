@@ -2,6 +2,32 @@
 
 Aplicativo mobile desenvolvido em Flutter para assistir video aulas e continuar exatamente de onde parou, com sincronização em nuvem.
 
+
+## 🎬 Demonstração do App
+
+![Demo](screenshots/app_demo.gif)
+
+## 📱 Screenshots
+
+### 🔐 Login
+![Login](screenshots/login.png)
+
+### 🏠 Home
+![Home](screenshots/home.png)
+
+### 🎬 Player Vertical
+![Player](screenshots/player_vertical.png)
+
+### 📺 Player Fullscreen
+![Fullscreen](screenshots/fullscreen.png)
+
+### 📂 Playlists
+![Playlists](screenshots/playlists.png)
+
+### ▶️ Vídeos da Playlist
+![Playlist Videos](screenshots/playlist_videos.png)
+
+
 ---
 
 ## 🚀 Funcionalidades
