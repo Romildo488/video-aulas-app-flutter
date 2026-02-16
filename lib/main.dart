@@ -2,11 +2,12 @@ import 'services/firestore_service.dart';
 import 'services/local_video_service.dart';
 import 'services/local_videos_storage.dart';
 import 'services/thumbnail_service.dart';
+import 'services/video_download_service.dart'; // ⭐ NOVO DOWNLOAD
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'screens/login_page.dart';
-import 'screens/playlists_page.dart'; // ⭐ NOVO
+import 'screens/playlists_page.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'data/videos_data.dart';
@@ -32,14 +33,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         scaffoldBackgroundColor: const Color(0xFF121212),
         cardColor: const Color(0xFF1E1E1E),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1E1E1E),
-          elevation: 0,
-        ),
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.blue,
-          secondary: Colors.blueAccent,
-        ),
       ),
       home: const AuthCheck(),
     );
@@ -56,8 +49,7 @@ class AuthCheck extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+              body: Center(child: CircularProgressIndicator()));
         }
         if (snapshot.hasData) return const HomePage();
         return const LoginPage();
@@ -79,8 +71,15 @@ class _HomePageState extends State<HomePage> {
   final localVideo = LocalVideoService();
   final storage = LocalVideosStorage();
   final thumbService = ThumbnailService();
+  final downloader = VideoDownloadService(); // ⭐ NOVO
 
   List<VideoModel> videosLocais = [];
+
+  String formatarTempo(int segundos) {
+    final m = (segundos ~/ 60).toString().padLeft(2, '0');
+    final s = (segundos % 60).toString().padLeft(2, '0');
+    return "$m:$s";
+  }
 
   @override
   void initState() {
@@ -98,36 +97,13 @@ class _HomePageState extends State<HomePage> {
     videosLocais.removeWhere((v) => v.url == video.url);
     await storage.salvarVideos(videosLocais);
     setState(() {});
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Aula removida 🗑️")));
   }
 
   Future<void> carregarProgresso() async {
     final prefs = await SharedPreferences.getInstance();
-    Map<String, int> progressoLocal = {};
-
     for (var video in [...listaVideos, ...videosLocais]) {
-      progressoLocal[video.url] = prefs.getInt(video.url) ?? 0;
+      progressoVideos[video.url] = prefs.getInt(video.url) ?? 0;
     }
-
-    Map<String, int> progressoNuvem = {};
-    try {
-      progressoNuvem = await firestore.carregarProgresso();
-    } catch (e) {}
-
-    for (var video in [...listaVideos, ...videosLocais]) {
-      int local = progressoLocal[video.url] ?? 0;
-      int nuvem = progressoNuvem[video.url] ?? 0;
-      int maior = local > nuvem ? local : nuvem;
-
-      progressoVideos[video.url] = maior;
-      await prefs.setInt(video.url, maior);
-
-      try {
-        await firestore.salvarProgresso(video.url, maior);
-      } catch (e) {}
-    }
-
     setState(() {});
   }
 
@@ -146,29 +122,56 @@ class _HomePageState extends State<HomePage> {
 
     videosLocais.add(novoVideo);
     await storage.salvarVideos(videosLocais);
-
-    await carregarVideosLocais();
     await carregarProgresso();
-
     setState(() {});
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text("Thumbnail criada 🎬")));
   }
 
-  VideoModel? pegarUltimoVideoAssistido() {
-    VideoModel? ultimoVideo;
-    int maiorTempo = 0;
-
-    for (var video in [...listaVideos, ...videosLocais]) {
-      int tempo = progressoVideos[video.url] ?? 0;
-      if (tempo > maiorTempo) {
-        maiorTempo = tempo;
-        ultimoVideo = video;
-      }
+  ////////////////////////////////////////////////////////////////
+  /// ⭐ NOVO DOWNLOAD DE VIDEO
+  Future<void> baixarVideo(VideoModel video) async {
+    if (video.isLocal) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Vídeo já está baixado 📱")),
+      );
+      return;
     }
-    if (maiorTempo == 0) return null;
-    return ultimoVideo;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Baixando vídeo... ⏬")),
+    );
+
+    final path = await downloader.baixarVideo(
+      video.url,
+      video.titulo.replaceAll(" ", "_"),
+    );
+
+
+    if (path == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Erro ao baixar vídeo ❌")),
+      );
+      return;
+    }
+
+    final thumbPath = await thumbService.gerarThumbnail(path);
+
+    final novoVideo = VideoModel(
+      titulo: video.titulo,
+      url: path,
+      thumbnail: thumbPath ?? "",
+      isLocal: true,
+    );
+
+    videosLocais.add(novoVideo);
+    await storage.salvarVideos(videosLocais);
+    setState(() {});
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Download concluído 🎉")),
+    );
   }
+
+  ////////////////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -176,13 +179,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Minhas Video Aulas 🎓"),
         actions: [
-          // ⭐ BOTÃO PLAYLISTS ADICIONADO
           IconButton(
             icon: const Icon(Icons.playlist_play),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const PlaylistsPage()),
+                MaterialPageRoute(
+                    builder: (_) => PlaylistsPage(videoParaAdicionar: null)),
               );
             },
           ),
@@ -202,65 +205,73 @@ class _HomePageState extends State<HomePage> {
               onPressed: adicionarVideoLocal,
             ),
           ),
-
-          if (pegarUltimoVideoAssistido() != null) ...[
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text("Continuar assistindo 🎬",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            ),
-            _buildContinuarAssistindo(pegarUltimoVideoAssistido()!),
-          ],
-
-          const Padding(
-            padding: EdgeInsets.all(16),
-            child: Text("Todas as aulas 📚",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          ),
-
-          ...videosLocais.map((v) =>
-              _buildVideoCard(v, progressoVideos[v.url] ?? 0)),
-
-          ...listaVideos.map((v) =>
-              _buildVideoCard(v, progressoVideos[v.url] ?? 0)),
+          ...videosLocais
+              .map((v) => _buildVideoCard(v, progressoVideos[v.url] ?? 0)),
+          ...listaVideos
+              .map((v) => _buildVideoCard(v, progressoVideos[v.url] ?? 0)),
         ],
       ),
     );
   }
 
+  ////////////////////////////////////////////////////////////////
+  /// ⭐ CARD COM BOTÃO DOWNLOAD ADICIONADO
   Widget _buildVideoCard(VideoModel video, int segundosAssistidos) {
     const int duracaoTotal = 180;
-    double porcentagem = segundosAssistidos / duracaoTotal;
-    if (porcentagem > 1) porcentagem = 1;
-    bool concluido = porcentagem >= 0.95;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: Card(
-        elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () async {
             await Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => VideoPlayerPage(url: video.url)),
+              MaterialPageRoute(
+                  builder: (context) => VideoPlayerPage(url: video.url)),
             );
             carregarProgresso();
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: video.thumbnail.startsWith("/")
-                    ? Image.file(File(video.thumbnail),
-                    height: 180, width: double.infinity, fit: BoxFit.cover)
-                    : Image.network(video.thumbnail,
-                    height: 180, width: double.infinity, fit: BoxFit.cover),
+            child: Column(children: [
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: video.thumbnail.startsWith("/")
+                        ? Image.file(File(video.thumbnail),
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover)
+                        : Image.network(video.thumbnail,
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover),
+                  ),
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        formatarTempo(duracaoTotal),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 12),
-
               Row(
                 children: [
                   Expanded(
@@ -268,15 +279,29 @@ class _HomePageState extends State<HomePage> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
-                  if (concluido)
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: const Text("Concluído",
-                          style: TextStyle(color: Colors.white, fontSize: 12)),
+
+                  /// ⭐ BOTÃO DOWNLOAD
+                  IconButton(
+                    icon: Icon(
+                      video.isLocal ? Icons.download_done : Icons.download,
+                      color: Colors.green,
                     ),
+                    onPressed: () => baixarVideo(video),
+                  ),
+
+                  IconButton(
+                    icon: const Icon(Icons.playlist_add, color: Colors.blue),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              PlaylistsPage(videoParaAdicionar: video),
+                        ),
+                      );
+                    },
+                  ),
+
                   if (video.isLocal)
                     IconButton(
                       icon: const Icon(Icons.delete, color: Colors.red),
@@ -284,38 +309,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                 ],
               ),
-
-              const SizedBox(height: 10),
-              Text("Assistido: ${(porcentagem * 100).toStringAsFixed(0)}%"),
-              const SizedBox(height: 6),
-              LinearProgressIndicator(value: porcentagem),
             ]),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContinuarAssistindo(VideoModel video) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GestureDetector(
-        onTap: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => VideoPlayerPage(url: video.url)),
-          );
-          carregarProgresso();
-        },
-        child: Container(
-          height: 180,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: const LinearGradient(colors: [Colors.blue, Colors.blueAccent]),
-          ),
-          child: Center(
-            child: Text("Continuar: ${video.titulo}",
-                style: const TextStyle(fontSize: 20, color: Colors.white)),
           ),
         ),
       ),

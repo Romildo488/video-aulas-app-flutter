@@ -1,19 +1,21 @@
 import '../models/video_model.dart';
 
-final List<VideoModel> listaVideos = [
+final listaVideos = [
+
   VideoModel(
     titulo: "Aula 1 - Introdução",
-    url: "assets/videos/aula1.mp4",
-    thumbnail: "https://img.youtube.com/vi/1/0.jpg",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+
+    // ⭐ IMAGEM TECNOLOGIA 1
+    thumbnail: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200",
   ),
+
   VideoModel(
     titulo: "Aula 2 - Firebase",
-    url: "assets/videos/aula2.mp4",
-    thumbnail: "https://img.youtube.com/vi/2/0.jpg",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+
+    // ⭐ IMAGEM TECNOLOGIA 2
+    thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200",
   ),
-  VideoModel(
-    titulo: "Aula 3 - Firestore",
-    url: "assets/videos/aula3.mp4",
-    thumbnail: "https://img.youtube.com/vi/3/0.jpg",
-  ),
+
 ];

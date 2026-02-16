@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  wakelock_plus: ^1.2.5
 
+  # 🔒 manter tela ligada durante vídeo
+  wakelock_plus: ^1.2.5
 
   # 🎬 PLAYER DE VIDEO
   video_player: ^2.8.2
@@ -33,6 +34,9 @@ dependencies:
   # 💾 SALVAR VIDEO PERMANENTE NO APP
   path_provider: ^2.1.2
   path: ^1.9.0
+
+  # ⬇️ DOWNLOAD DE VIDEOS DA INTERNET ⭐ NOVO
+  dio: ^5.4.0
 
   cupertino_icons: ^1.0.8
 
