@@ -5,7 +5,10 @@ Aplicativo mobile desenvolvido em Flutter para assistir videoaulas e continuar e
 O app funciona como um mini YouTube de aulas, com suporte a vídeos locais, download offline e sistema completo de playlists.
 
 🎬 Demonstração do App
-<p align="center"> <img src="screenshots/app_demo.gif" width="250"> </p>
+<p align="center">
+  <img src="capturas de tela/app_demo.gif" width="250">
+</p>
+
 📱 Screenshots
 <p align="center"> <img src="screenshots/login.png" width="250"> <img src="screenshots/home.png" width="250"> </p> <p align="center"> <img src="screenshots/player_vertical.png" width="250"> <img src="screenshots/fullscreen.png" width="250"> </p> <p align="center"> <img src="screenshots/playlists.png" width="250"> <img src="screenshots/playlist_videos.png" width="250"> </p>
 🚀 Funcionalidades
