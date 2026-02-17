@@ -82,6 +82,8 @@ O app funciona como um **mini YouTube de aulas**, com suporte a vídeos locais, 
 
 # 📦 APK para teste
 
-Baixe e instale no Android:
+Baixe e instale o aplicativo Android:
 
-👉 **[📥 Download do APK](https://github.com/Romildo488/aplicativo-de-video-aulas-flutter/raw/main/app-release.apk)**
+👉 [⬇️ Baixar APK](https://github.com/Romildo488/video-aulas-app-flutter/releases/download/v1.0/app-release.apk)
+
+Caso o navegador bloqueie, permita o download e instale manualmente no celular.
