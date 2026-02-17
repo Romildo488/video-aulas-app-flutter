@@ -18,7 +18,12 @@ Este projeto funciona como um **mini YouTube de aulas**, com suporte a vídeos l
 
 ⬇️ Clique abaixo para baixar:
 
-👉 https://github.com/Romildo488/video-aulas-app-flutter/releases/latest
+Baixe e instale o aplicativo Android:
+
+👉 [⬇️ Baixar APK](https://github.com/Romildo488/video-aulas-app-flutter/releases/download/v1.0/app-release.apk)
+
+Caso o navegador bloqueie, permita o download e instale manualmente no celular.
+
 
 *(Baixe o arquivo app-release.apk e instale no celular Android)*
 
