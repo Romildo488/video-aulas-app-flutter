@@ -82,6 +82,16 @@ O app funciona como um **mini YouTube de aulas**, com suporte a vídeos locais, 
 
 # 📦 APK para teste
 
-Baixe e teste o aplicativo:
+---
 
-👉 **Download do APK**
+# 📦 Baixar APK para teste
+
+Você pode baixar e testar o aplicativo Android clicando abaixo:
+
+<p align="center">
+  <a href="app-release.apk">
+    <img src="https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android"/>
+  </a>
+</p>
+
+👉 Caso o navegador bloqueie, permita o download e instale manualmente no celular.
